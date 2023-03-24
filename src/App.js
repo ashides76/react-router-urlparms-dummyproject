@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Link, Route, useParams} from "react-router-dom";
+import React, {useState, useEffect} from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const style = {
+  margin: '1rem', 
+  padding: '0.5rem', 
+  border: '2px solid black',
+  display: 'flex',
+  justifyContent: 'center',
+
 }
 
-export default App;
+function Home() {
+  return <h2 style={{...style, borderColor: 'red'}}>Home Screen</h2>
+}
+
+function User(props) {
+  const {id} = useParams();
+  const [data, setData] = useState();
+  useEffect(() => {
+      // The following is "pseudocode" data fetching, using the id pulled from the URL:
+      // axios.get(`acme-api/users/${id}`).then(res => setData(res.data))
+  },[id])
+  return <h2 style={{...style, borderColor: 'green'}}>User {id} </h2>
+}
+
+
+export default function App() {
+
+  return (
+    <BrowserRouter>
+      <h1>React Router UseParms</h1>
+      <nav>
+        <Link to="/">Home</Link>&nbsp;&nbsp;
+        {[1, 2, 3, 4].map((id, ind) => <Link to={`user/${id}`} key={ind}>User{id}&nbsp;&nbsp;</Link>)} 
+      </nav>
+      <Routes> 
+        <Route path="/" element={<Home />}/> 
+        <Route path="user/:id" element={<User />}/> 
+      </Routes> 
+    </BrowserRouter>
+  );
+}
