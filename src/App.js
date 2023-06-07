@@ -16,12 +16,12 @@ function Home() {
 
 function User(props) {
   const {id} = useParams();
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
   useEffect(() => {
       // The following is "pseudocode" data fetching, using the id pulled from the URL:
       // axios.get(`acme-api/users/${id}`).then(res => setData(res.data))
   },[id])
-  return <h2 style={{...style, borderColor: 'green'}}>User {id} </h2>
+  return <h2 style={{...style, borderColor: 'green'}}>User details for {id} </h2>
 }
 
 
@@ -32,7 +32,7 @@ export default function App() {
       <h1>React Router UseParms</h1>
       <nav>
         <Link to="/">Home</Link>&nbsp;&nbsp;
-        {[1, 2, 3, 4].map((id, ind) => <Link to={`user/${id}`} key={ind}>User{id}&nbsp;&nbsp;</Link>)} 
+        {[1, 2, 3, 4].map((int) =><><Link to={`user/${int}`}> User{int}</Link>&nbsp;</>)} 
       </nav>
       <Routes> 
         <Route path="/" element={<Home />}/> 
